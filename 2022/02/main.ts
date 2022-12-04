@@ -26,15 +26,26 @@ export function decrypt(input: string, secondColumnDecryptionMap: Record<string,
 }
 
 export function play(a: string, b: string): string {
-	if (a === b) return 'draw';
-	if (a === 'rock' && b === 'scissors') return 'lost';
-	if (a === 'rock' && b === 'paper') return 'win';
-	if (a === 'paper' && b === 'rock') return 'lost';
-	if (a === 'paper' && b === 'scissors') return 'win';
-	if (a === 'scissors' && b === 'paper') return 'lost';
-	if (a === 'scissors' && b === 'rock') return 'win';
-	else {
-		console.log({ a, b });
-		return 'NOT_SET';
+	const RESULTS = {
+		DRAW: 'draw',
+		WIN: 'win',
+		LOST: 'lost',
+	};
+
+	if (a === b) return RESULTS.DRAW;
+	if (a === 'rock') {
+		if (b === 'paper') return RESULTS.WIN;
+		if (b === 'scissors') return RESULTS.LOST;
 	}
+	if (a === 'paper') {
+		if (b === 'rock') return RESULTS.LOST;
+		if (b === 'scissors') return RESULTS.WIN;
+	}
+	if (a === 'scissors') {
+		if (b === 'rock') return RESULTS.WIN;
+		if (b === 'paper') return RESULTS.LOST;
+	}
+
+	console.log({ a, b });
+	return 'NOT_SET';
 }
