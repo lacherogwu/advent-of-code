@@ -1,11 +1,8 @@
-import { readTextFile } from '../../utils.ts';
+import { getInput } from '../../utils.ts';
 
-const fileName = 'input.txt';
+const input = await getInput(import.meta);
 
-const input = await readTextFile(fileName);
-const splittedText = input.trim().split('\n');
-
-const inventories = parseTextToGroups(splittedText);
+const inventories = parseTextToGroups(input);
 const countTotalCaloriesOfEachInventory = inventories.map(inventory => {
 	const total = inventory.reduce((acc, calories) => acc + +calories, 0);
 	return total;

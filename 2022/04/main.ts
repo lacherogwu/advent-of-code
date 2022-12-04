@@ -4,8 +4,7 @@ const input = await getInput(import.meta);
 
 export const parsed = parseInput(input);
 
-function parseInput(input: string) {
-	const lines = input.split('\n');
+function parseInput(lines: string[]) {
 	return lines.map(line => {
 		const pairs = line.split(',');
 

@@ -1,14 +1,8 @@
 import { getInput } from '../../utils.ts';
 
-const input = await getInput(import.meta);
+export const input = await getInput(import.meta);
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-export const rucksacks = getRucksackList(input);
-
-function getRucksackList(input: string) {
-	return input.split('\n');
-}
 
 export function getPriority(character: string) {
 	return alphabet.indexOf(character) + 1;

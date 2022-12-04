@@ -1,3 +1,4 @@
 import { sortedItems } from './main.ts';
 
-console.log(sortedItems[0]);
+const [output] = sortedItems;
+console.log(output);

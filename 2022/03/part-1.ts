@@ -1,6 +1,6 @@
-import { rucksacks, sumPriorities } from './main.ts';
+import { input, sumPriorities } from './main.ts';
 
-const formattedRucksacks = rucksacks.map(splitStringToHalf);
+const formattedRucksacks = input.map(splitStringToHalf);
 const output = sumPriorities(formattedRucksacks);
 console.log(output);
 

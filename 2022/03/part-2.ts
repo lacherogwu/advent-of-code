@@ -1,6 +1,6 @@
-import { rucksacks, sumPriorities } from './main.ts';
+import { input, sumPriorities } from './main.ts';
 
-const groups = splitToGroups(rucksacks, 3);
+const groups = splitToGroups(input, 3);
 const output = sumPriorities(groups);
 console.log(output);
 

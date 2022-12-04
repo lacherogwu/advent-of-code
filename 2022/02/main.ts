@@ -1,9 +1,6 @@
-import { readTextFile } from '../../utils.ts';
+import { getInput } from '../../utils.ts';
 
-const fileName = 'sample-input.txt';
-const input = await readTextFile(fileName, import.meta);
-
-export const rounds = input.split('\n');
+export const input = await getInput(import.meta);
 
 export const scoreMap: Record<string, number> = {
 	rock: 1,

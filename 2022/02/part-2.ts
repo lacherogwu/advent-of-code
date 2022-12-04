@@ -1,4 +1,4 @@
-import { rounds, scoreMap, decrypt, play } from './main.ts';
+import { input, scoreMap, decrypt, play } from './main.ts';
 
 const secondColumnDecryptionMap: Record<string, string> = {
 	X: 'lose',
@@ -6,22 +6,16 @@ const secondColumnDecryptionMap: Record<string, string> = {
 	Z: 'win',
 };
 
-const output = solve();
+const output = input.reduce((acc, round) => {
+	const [aShape, bResult] = decrypt(round, secondColumnDecryptionMap);
+
+	const bShape = convertResultToShape(bResult, aShape);
+	const result = play(aShape, bShape);
+	const score = scoreMap[result] + scoreMap[bShape];
+	return acc + score;
+}, 0);
+
 console.log(output);
-
-function solve() {
-	let totalScore = 0;
-	rounds.forEach(round => {
-		const [aShape, bResult] = decrypt(round, secondColumnDecryptionMap);
-
-		const bShape = convertResultToShape(bResult, aShape);
-		const result = play(aShape, bShape);
-		const score = scoreMap[result] + scoreMap[bShape];
-		totalScore += score;
-	});
-
-	return totalScore;
-}
 
 function convertResultToShape(result: string, aShape: string) {
 	let output = '';
