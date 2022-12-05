@@ -5,20 +5,10 @@ const input = await getTextInput(import.meta);
 const newLineIndex = input.indexOf('\n\n');
 const stacksTextInput = input.substring(0, newLineIndex);
 
-const crateStacks = parseStacksInput(stacksTextInput);
+export const crateStacks = parseStacksInput(stacksTextInput);
 
-const instructions = input.slice(newLineIndex + 2).split('\n');
-
-instructions.forEach(instruction => {
-	const [amount, from, to] = parseInstruction(instruction);
-	for (let i = 0; i < amount; i++) {
-		move(from, to);
-	}
-});
-
-const topCrates = getTopCrates(crateStacks);
-const output = topCrates.join('');
-console.log(output);
+const instructionsText = input.slice(newLineIndex + 2).split('\n');
+export const instructions = instructionsText.map(parseInstruction);
 
 function parseStacksInput(stacksTextInput: string) {
 	const lines = stacksTextInput.split('\n');
@@ -47,7 +37,7 @@ function parseStacksInput(stacksTextInput: string) {
 	return stacks;
 }
 
-function getTopCrates(stack: string[][]) {
+export function getTopCrates(stack: string[][]) {
 	const top: string[] = [];
 	stack.forEach(item => {
 		const lastItem = item.at(-1);
@@ -58,16 +48,15 @@ function getTopCrates(stack: string[][]) {
 	return top;
 }
 
-function move(from: number, to: number) {
-	const fromStack = crateStacks[from - 1];
-	const toStack = crateStacks[to - 1];
-	const crate = fromStack.pop();
-	if (crate) {
-		toStack.push(crate);
-	}
-}
-
-function parseInstruction(text: string) {
+function parseInstruction(text: string): [number, number, number] {
 	const [amount, from, to] = text.match(/\d+/g)!;
 	return [+amount, +from, +to];
+}
+
+export function move(crateStacks: string[][], instructions: [number, number, number], callback: (fromStack: string[], amount: number) => string[] | string) {
+	const [amount, from, to] = instructions;
+	const fromStack = crateStacks[from - 1];
+	const toStack = crateStacks[to - 1];
+	const cratesToMove = callback(fromStack, amount);
+	toStack.push(...cratesToMove);
 }
